@@ -34,7 +34,7 @@ This allows the system to support complex time-travel queries, such as: *"What d
 ## 📂 Project Structure
 ```text
 ├── project_db_2025.xlsx   # The initial dataset (Excel/CSV)
-├── main.py                # Main source code (The TemporalDB class)
+├── TemporalDB.py                # Main source code (The TemporalDB class)
 └── README.md              # Project documentation
 ```
 
