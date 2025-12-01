@@ -47,7 +47,8 @@ if __name__ == "__main__":
             print("\n--- QUERY HISTORY ---")
             p_first = input("Patient First Name: ")
             p_last = input("Patient Last Name: ")
-            code = input("LOINC Code (e.g. 14743-9): ")
+            # שינינו את ההנחיה למשתמש:
+            code = input("LOINC Code (e.g. 14743-9) [Enter for ALL tests]: ")
 
             print("Define Time Range (Valid Time):")
             start_str = input("Start Date (DD/MM/YYYY HH:MM) [Enter for 01/01/1900]: ")
@@ -55,15 +56,13 @@ if __name__ == "__main__":
             t_time_str = input("Perspective Time (DD/MM/YYYY HH:MM) [Enter for Now]: ")
 
             try:
-                # המרת תאריכים עם ברירות מחדל
                 start_time = pd.to_datetime(start_str, dayfirst=True) if start_str.strip() else pd.to_datetime(
                     "01/01/1900", dayfirst=True)
                 end_time = pd.to_datetime(end_str, dayfirst=True) if end_str.strip() else datetime.now()
                 t_time = pd.to_datetime(t_time_str, dayfirst=True) if t_time_str.strip() else datetime.now()
 
-                # קריאה לפונקציה החדשה ב-TemporalDB
-                # (אם יש שגיאה כאן, וודא שהוספת את query_history לקובץ temporal_db.py)
-                print(sys.query_history(p_first, p_last, code, start_time, end_time, t_time))
+                # העברת ה-code לפונקציה (אם הוא ריק הפונקציה תדע להתמודד)
+                print(sys.query_history(p_first, p_last, start_time, end_time, t_time, code))
             except Exception as e:
                 print(f"Error: {e}")
 
