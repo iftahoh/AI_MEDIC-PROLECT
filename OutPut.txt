@@ -1,15 +1,16 @@
-1.
+שאלה 1
 ========================================
    TEMPORAL DB - INTERACTIVE MENU
 ========================================
-1. Retrieve (שאילתת אחזור)
-2. Delete (מחיקה לוגית)
-3. Update (עדכון לוגי)
-4. Exit (יציאה)
+1. Retrieve (שאילתת אחזור רגילה)
+2. Retrieve History (אחזור היסטוריה)
+3. Delete (מחיקה לוגית)
+4. Update (עדכון לוגי)
+5. Exit (יציאה)
 
-Select option (1-4): 1
+Select option (1-5): 1
 
---- NEW QUERY ---
+--- NEW QUERY (RETRIEVE) ---
 Patient First Name: Eyal
 Patient Last Name: Rothman
 LOINC Code (e.g. 11218-5): 14743-9
@@ -17,19 +18,19 @@ Valid Time (DD/MM/YYYY HH:MM) [Enter for Today]: 17/05/2018 21:00
 Perspective Time (DD/MM/YYYY HH:MM) [Enter for Now]: 22/05/2018 15:00
 *** RESULT: 111 *** (Date: 2018-05-17 21:00:00, Concept: Glucose [Moles/volume] in Body fluid)
 
-
-2.
+שאלה 2
 ========================================
    TEMPORAL DB - INTERACTIVE MENU
 ========================================
-1. Retrieve (שאילתת אחזור)
-2. Delete (מחיקה לוגית)
-3. Update (עדכון לוגי)
-4. Exit (יציאה)
+1. Retrieve (שאילתת אחזור רגילה)
+2. Retrieve History (אחזור היסטוריה)
+3. Delete (מחיקה לוגית)
+4. Update (עדכון לוגי)
+5. Exit (יציאה)
 
-Select option (1-4): 1
+Select option (1-5): 1
 
---- NEW QUERY ---
+--- NEW QUERY (RETRIEVE) ---
 Patient First Name: Eyal
 Patient Last Name: Rothman
 LOINC Code (e.g. 11218-5): 14743-9
@@ -37,19 +38,19 @@ Valid Time (DD/MM/YYYY HH:MM) [Enter for Today]: 17/05/2018 21:00
 Perspective Time (DD/MM/YYYY HH:MM) [Enter for Now]: 23/05/2018 15:00
 *** RESULT: 100 *** (Date: 2018-05-17 21:00:00, Concept: Glucose [Moles/volume] in Body fluid)
 
-
-3.
+שאלה 3
 ========================================
    TEMPORAL DB - INTERACTIVE MENU
 ========================================
-1. Retrieve (שאילתת אחזור)
-2. Delete (מחיקה לוגית)
-3. Update (עדכון לוגי)
-4. Exit (יציאה)
+1. Retrieve (שאילתת אחזור רגילה)
+2. Retrieve History (אחזור היסטוריה)
+3. Delete (מחיקה לוגית)
+4. Update (עדכון לוגי)
+5. Exit (יציאה)
 
-Select option (1-4): 1
+Select option (1-5): 1
 
---- NEW QUERY ---
+--- NEW QUERY (RETRIEVE) ---
 Patient First Name: Eyal
 Patient Last Name: Rothman
 LOINC Code (e.g. 11218-5): 14743-9
@@ -57,21 +58,61 @@ Valid Time (DD/MM/YYYY HH:MM) [Enter for Today]: 18/05/2018
 Perspective Time (DD/MM/YYYY HH:MM) [Enter for Now]:
 *** RESULT: 67 *** (Date: 2018-05-18 02:00:00, Concept: Glucose [Moles/volume] in Body fluid)
 
-
-4.
+שאלה 4
 ========================================
    TEMPORAL DB - INTERACTIVE MENU
 ========================================
-1. Retrieve (שאילתת אחזור)
-2. Delete (מחיקה לוגית)
-3. Update (עדכון לוגי)
-4. Exit (יציאה)
+1. Retrieve (שאילתת אחזור רגילה)
+2. Retrieve History (אחזור היסטוריה)
+3. Delete (מחיקה לוגית)
+4. Update (עדכון לוגי)
+5. Exit (יציאה)
 
-Select option (1-4): 2
+Select option (1-5): 3
 
 --- DELETE RECORD ---
 Patient First Name: Eyal
 Patient Last Name: Rothman
 LOINC Code: 14743-9
-Time of measurement to delete (DD/MM/YYYY HH:MM): 18/05/2018 2:00
+Time of measurement to delete (DD/MM/YYYY HH:MM): 18/05/2018 02:00
 Success: Record marked as DELETED.
+
+שאלה 5
+========================================
+   TEMPORAL DB - INTERACTIVE MENU
+========================================
+1. Retrieve (שאילתת אחזור רגילה)
+2. Retrieve History (אחזור היסטוריה)
+3. Delete (מחיקה לוגית)
+4. Update (עדכון לוגי)
+5. Exit (יציאה)
+
+Select option (1-5): 1
+
+--- NEW QUERY (RETRIEVE) ---
+Patient First Name: Eyal
+Patient Last Name: Rothman
+LOINC Code (e.g. 11218-5): 14947-9
+
+Valid Time (DD/MM/YYYY HH:MM) [Enter for Today]: 18/05/2018
+Perspective Time (DD/MM/YYYY HH:MM) [Enter for Now]: No records found.
+
+שאלה 6
+========================================
+   TEMPORAL DB - INTERACTIVE MENU
+========================================
+1. Retrieve (שאילתת אחזור רגילה)
+2. Retrieve History (אחזור היסטוריה)
+3. Delete (מחיקה לוגית)
+4. Update (עדכון לוגי)
+5. Exit (יציאה)
+
+Select option (1-5): 1
+
+--- NEW QUERY (RETRIEVE) ---
+Patient First Name: Eyal
+Patient Last Name: Rothman
+LOINC Code (e.g. 11218-5): 14743-9
+Valid Time (DD/MM/YYYY HH:MM) [Enter for Today]: 18/05/2018
+Perspective Time (DD/MM/YYYY HH:MM) [Enter for Now]: 30/11/2025
+*** RESULT: 67 *** (Date: 2018-05-18 02:00:00, Concept: Glucose [Moles/volume] in Body fluid)

@@ -152,3 +152,60 @@ class TemporalDB:
 
         self.db = pd.concat([self.db, pd.DataFrame([new_row])], ignore_index=True)
         print(f"Success: Updated value to {new_value}.")
+
+    def query_history(self, first_name, last_name, loinc, start_valid_time, end_valid_time,
+                      query_transaction_time=None):
+        """
+        שאילתת אחזור היסטוריה: מחזירה את כל המדידות התקפות בטווח הזמנים המבוקש.
+        """
+        if query_transaction_time is None:
+            query_transaction_time = datetime.now()
+
+        # 1. סינון לפי חולה וקוד בדיקה
+        if self.db.empty: return "Database is empty."
+
+        mask_patient = (self.db['FirstName'].astype(str).str.lower() == first_name.lower()) & \
+                       (self.db['LastName'].astype(str).str.lower() == last_name.lower())
+        mask_loinc = self.db['LOINC'].astype(str) == str(loinc)
+
+        df = self.db[mask_patient & mask_loinc].copy()
+
+        if df.empty: return "No records found for this patient and LOINC code."
+
+        # 2. סינון לפי זמן טרנזקציה (Perspective Time)
+        # אנחנו רוצים לראות את ההיסטוריה כפי שהייתה ידועה בנקודת הזמן הזו
+        df = df[df['TransactionTime'] <= query_transaction_time]
+
+        if df.empty: return "No data found visible at this Transaction Time."
+
+        # 3. מציאת הגרסה העדכנית ביותר לכל מועד מדידה (Valid Time)
+        # עבור כל זמן מדידה, אנו לוקחים רק את השורה עם זמן הטרנזקציה הגבוה ביותר (העדכון האחרון)
+        # זה מסנן ערכים ישנים שתוקנו או נמחקו לוגית
+        latest_indices = df.groupby('ValidStartTime')['TransactionTime'].idxmax()
+        df_clean = df.loc[latest_indices]
+
+        # 4. סינון לפי טווח זמנים מבוקש (Valid Time Range)
+        mask_time = (df_clean['ValidStartTime'] >= start_valid_time) & (df_clean['ValidStartTime'] <= end_valid_time)
+        df_history = df_clean[mask_time].sort_values('ValidStartTime')
+
+        if df_history.empty: return "No matching records in the specified time range."
+
+        # 5. עיצוב הפלט
+        desc = self.get_loinc_desc(loinc)
+        result_lines = [f"*** HISTORY RESULT for {desc} ({loinc}) ***"]
+
+        found_records = False
+        for _, row in df_history.iterrows():
+            val = row['Value']
+            # אופציונלי: האם להציג שורות שנמחקו? בדרך כלל בהיסטוריית ערכים מציגים רק מה שקיים.
+            if str(val) == "DELETED":
+                continue
+
+            found_records = True
+            v_time_str = row['ValidStartTime'].strftime('%Y-%m-%d %H:%M')
+            result_lines.append(f"Date: {v_time_str} | Value: {val} {row.get('Unit', '')}")
+
+        if not found_records:
+            return "No active records found in this range (all were deleted)."
+
+        return "\n".join(result_lines)
