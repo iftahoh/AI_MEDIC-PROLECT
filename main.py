@@ -30,7 +30,8 @@ if __name__ == "__main__":
             print("\n--- NEW QUERY (RETRIEVE) ---")
             p_first = input("Patient First Name: ")
             p_last = input("Patient Last Name: ")
-            code = input("LOINC Code (e.g. 11218-5): ")
+            test_id = input("Test (LOINC code or Component name, e.g. '14743-9' or 'Glucose'): ")
+            code = sys.resolve_test_identifier(test_id)
             v_time_str = input("Valid Time (DD/MM/YYYY HH:MM) [Enter for Today]: ")
             t_time_str = input("Perspective Time (DD/MM/YYYY HH:MM) [Enter for Now]: ")
 
@@ -48,7 +49,8 @@ if __name__ == "__main__":
             p_first = input("Patient First Name: ")
             p_last = input("Patient Last Name: ")
             # שינינו את ההנחיה למשתמש:
-            code = input("LOINC Code (e.g. 14743-9) [Enter for ALL tests]: ")
+            test_id = input("Test (LOINC code or Component name) [Enter for ALL tests]: ")
+            code = sys.resolve_test_identifier(test_id)
 
             print("Define Time Range (Valid Time):")
             start_str = input("Start Date (DD/MM/YYYY HH:MM) [Enter for 01/01/1900]: ")
@@ -71,7 +73,8 @@ if __name__ == "__main__":
             print("\n--- DELETE RECORD ---")
             p_first = input("Patient First Name: ")
             p_last = input("Patient Last Name: ")
-            code = input("LOINC Code: ")
+            test_id = input("Test (LOINC code or Component name) [Enter for ALL tests]: ")
+            code = sys.resolve_test_identifier(test_id)
             v_time_str = input("Time of measurement to delete (DD/MM/YYYY HH:MM): ")
             try:
                 v_time = pd.to_datetime(v_time_str, dayfirst=True)
@@ -84,7 +87,8 @@ if __name__ == "__main__":
             print("\n--- UPDATE RECORD ---")
             p_first = input("Patient First Name: ")
             p_last = input("Patient Last Name: ")
-            code = input("LOINC Code: ")
+            test_id = input("Test (LOINC code or Component name) [Enter for ALL tests]: ")
+            code = sys.resolve_test_identifier(test_id)
             v_time_str = input("Time of original measurement (DD/MM/YYYY HH:MM): ")
             new_val = input("Enter NEW Value: ")
             try:

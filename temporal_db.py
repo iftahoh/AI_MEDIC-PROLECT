@@ -12,6 +12,35 @@ class TemporalDB:
             "11218-5": "Anatomic pathology & Lab medicine"
         }
 
+    def resolve_test_identifier(self, identifier):
+        """
+        מקבל מזהה בדיקה מהמשתמש:
+        - אם ריק → מחזיר None (בלי סינון לפי בדיקה)
+        - אם נראה כמו קוד LOINC → מחזיר אותו כמו שהוא
+        - אחרת מנסה לחפש לפי תיאור הבדיקה במילון loinc_dictionary
+        """
+        if identifier is None:
+            return None
+
+        identifier = identifier.strip()
+        if identifier == "":
+            return None
+
+        # אם זה נראה כמו קוד LOINC (ספרות ו/או מקף) – נניח שזה הקוד עצמו
+        raw = identifier.replace("-", "")
+        if raw.isdigit():
+            return identifier  # זה קוד LOINC
+
+        # אחרת – נחפש לפי תיאור הבדיקה במילון (values)
+        lower_id = identifier.lower()
+        for code, desc in self.loinc_dictionary.items():
+            # אם המילה שהמשתמש הקליד מופיעה בתוך התיאור
+            if lower_id in desc.lower():
+                return code
+
+        # לא מצאנו שום דבר מתאים
+        return None
+
     def load_data(self, file_path):
         """ טעינת נתונים חכמה """
         print(f"Attempting to load: {file_path}")
